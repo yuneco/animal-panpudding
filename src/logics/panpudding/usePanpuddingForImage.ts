@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { computedAsync } from '@vueuse/core'
-import { createPanPudding, type Panpudding } from './createPanPuddings'
+import { createPanpudding, type Panpudding } from './panpudding'
 import { detectWeather } from './detectWeather'
 import { createImage } from '../core/createImage'
 
@@ -17,7 +17,7 @@ export const usePanpuddingForImage = (src: Ref<string>) => {
       const img = await createImage(src.value)
       const weather = await detectWeather(img)
       if (!weather) return undefined
-      return createPanPudding(weather.weather, weather.probability)
+      return createPanpudding(weather.weather, weather.probability)
     },
     undefined,
     isProcessing

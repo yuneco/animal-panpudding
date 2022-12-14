@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import type { Panpudding } from '@/logics/panpudding/createPanPuddings'
+import { appearWithLag } from '@/logics/animations/appearWithLag'
+import { disappear } from '@/logics/animations/disappear'
+import type { Panpudding } from '@/logics/panpudding/panpudding'
 import { computed } from 'vue'
-import OutlineText from './OutlineText.vue'
+import OutlineText from './filters/OutlineText.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -14,54 +16,12 @@ const props = withDefaults(
 
 const visible = computed(() => !!props.result)
 const enter = async (root: Element, done: () => void) => {
-  const els = [...root.querySelectorAll('.appear')]
-  await Promise.all(
-    els.map(
-      (el, index) =>
-        el.animate(
-          [
-            {
-              transform: `translateY(30px) scale(1.1)`,
-              filter: `blur(4px)`,
-              opacity: 0,
-            },
-            {
-              transform: `translateY(0px) scale(1)`,
-              filter: `blur(0px)`,
-              opacity: 1,
-            },
-          ],
-          {
-            duration: 1400,
-            delay: index * 400,
-            fill: 'backwards',
-            easing: `cubic-bezier(0.22, 1, 0.36, 1)`,
-          }
-        ).finished
-    )
-  )
+  await appearWithLag(root, '.appear')
   done()
 }
 
 const leave = async (el: Element, done: () => void) => {
-  await el.animate(
-    [
-      {
-        transform: `scale(1)`,
-        filter: `blur(0px)`,
-        opacity: 1,
-      },
-      {
-        transform: `scale(1.3)`,
-        filter: `blur(8px)`,
-        opacity: 0,
-      },
-    ],
-    {
-      duration: 1500,
-      easing: `cubic-bezier(0.22, 1, 0.36, 1)`,
-    }
-  ).finished
+  await disappear(el)
   done()
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppTitle from './AppTitle.vue'
-import MainStage from './MainStage.vue'
+import MainStage from '../MainStage.vue'
 </script>
 
 <template>
@@ -21,6 +21,7 @@ import MainStage from './MainStage.vue'
   width: 100%;
   height: 100%;
   min-height: 900px;
+  max-height: 1024px;
   max-width: 640px;
   border: 3px solid var(--theme-mid);
   background-color: var(--theme-mid);

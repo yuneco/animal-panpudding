@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AppPage from './components/AppPage.vue'
-import FulfulFilte from './components/FulfulFilter.vue'
-import OutlineFilter from './components/OutlineFilter.vue'
+import AppPage from './components/app/AppPage.vue'
+import FulfulFilte from './components/filters/FulfulFilter.vue'
+import OutlineFilter from './components/filters/OutlineFilter.vue'
 </script>
 
 <template>

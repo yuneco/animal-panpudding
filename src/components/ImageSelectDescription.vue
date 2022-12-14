@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import OutlineText from './OutlineText.vue'
+import OutlineText from './filters/OutlineText.vue'
 </script>
 
 <style lang="scss" scoped>

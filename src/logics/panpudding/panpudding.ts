@@ -111,7 +111,7 @@ const ANIMALS = [
   'トラ',
 ]
 
-export const createPanPudding = (weather: Weather, probability: number): Panpudding => {
+export const createPanpudding = (weather: Weather, probability: number): Panpudding => {
   const [name, msg] = randomChoice(PANPUDDINGS[weather])
   const animal = randomChoice(ANIMALS)
   return {

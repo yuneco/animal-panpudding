@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { appear } from '@/logics/animations/appear'
+import { disappear } from '@/logics/animations/disappear'
+
 withDefaults(
   defineProps<{
     visible?: boolean
@@ -9,45 +12,12 @@ withDefaults(
 )
 
 const enter = async (el: Element, done: () => void) => {
-  await el.animate(
-    [
-      {
-        transform: `translateY(30px)`,
-      },
-      {
-        transform: `translateY(-10px)`,
-      },
-      {
-        transform: `translateY(0px)`,
-      },
-    ],
-    {
-      duration: 500,
-      easing: `cubic-bezier(0.22, 1, 0.36, 1)`,
-    }
-  ).finished
+  await appear(el)
   done()
 }
 
 const leave = async (el: Element, done: () => void) => {
-  await el.animate(
-    [
-      {
-        transform: `scale(1)`,
-        filter: `blur(0px)`,
-        opacity: 1,
-      },
-      {
-        transform: `scale(1.3)`,
-        filter: `blur(8px)`,
-        opacity: 0,
-      },
-    ],
-    {
-      duration: 1500,
-      easing: `cubic-bezier(0.22, 1, 0.36, 1)`,
-    }
-  ).finished
+  await disappear(el)
   done()
 }
 </script>
