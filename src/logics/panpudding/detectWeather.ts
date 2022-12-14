@@ -1,10 +1,5 @@
 import * as tmImage from '@teachablemachine/image'
-import modelUrl from '@/assets/model.json?url'
-import metaUrl from '@/assets/metadata.json?url'
 import { WEATHER_NAMES } from './weather'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import binUrl from '@/assets/weights.bin?url'
 
 let modelLoader: ReturnType<typeof tmImage.load> | undefined = undefined
 
@@ -14,7 +9,7 @@ let modelLoader: ReturnType<typeof tmImage.load> | undefined = undefined
  */
 const loadModel = () => {
   if (!modelLoader) {
-    modelLoader = tmImage.load(modelUrl, metaUrl)
+    modelLoader = tmImage.load('/ml/model.json', '/ml/metadata.json')
   }
   return modelLoader
 }
