@@ -10,6 +10,8 @@ export type Panpudding = {
   probability: number
 }
 
+const ZWSP = '\u200b'
+
 const PANPUDDINGS = {
   fine: [
     ['お日様パンプリン', `今日はとても運が良さそう！<ANIMAL>たちがいるからかもしれませんね！`],
@@ -113,7 +115,7 @@ export const createPanPudding = (weather: Weather, probability: number): Panpudd
   const [name, msg] = randomChoice(PANPUDDINGS[weather])
   const animal = randomChoice(ANIMALS)
   return {
-    name: `${animal}の${name}`,
+    name: `${animal}の${ZWSP}${name.replace('パンプリン', `${ZWSP}パンプリン`)}`,
     msg: msg.replace(/<ANIMAL>/g, animal),
     weather,
     probability,

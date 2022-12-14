@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Opti:wght@400;700&display=swap');
 
+
 :root {
   --theme-dark: rgb(47, 43, 54);
   --theme-mid: rgb(106, 76, 132);
@@ -30,4 +31,20 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 48px 24px;
+
+  background-color: #fff;
+  opacity: 0.8;
+  background-image: radial-gradient(var(--theme-light) 0.5px, #fff 0.5px);
+  background-size: 10px 10px;
+
 }

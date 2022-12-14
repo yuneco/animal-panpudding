@@ -84,23 +84,25 @@ const probability = computed(() =>
   <div class="ResultMsg" :class="{ visible }">
     <Transition @enter="enter" @leave="leave">
       <div v-if="result" class="main">
-        <div class="weatherLabel appear"><OutlineText>今日の天気は</OutlineText></div>
+        <div class="weatherLabel appear"><OutlineText class="text">今日の天気は</OutlineText></div>
         <div class="weatherResult appear">
           <div class="weather">
-            <OutlineText>{{ weather }}</OutlineText>
+            <OutlineText class="text">{{ weather }}</OutlineText>
           </div>
           <div class="probability">
-            <OutlineText>{{ `（確率${probability}）` }}</OutlineText>
+            <OutlineText class="text">{{ `（確率${probability}）` }}</OutlineText>
           </div>
         </div>
-        <div class="nameLabelPre appear"><OutlineText>おすすめの動物パンプリンは</OutlineText></div>
+        <div class="nameLabelPre appear">
+          <OutlineText class="text">おすすめの動物パンプリンは</OutlineText>
+        </div>
         <div class="nameBox appear">
           <div class="name">
-            <OutlineText>{{ result.name }}</OutlineText>
+            <OutlineText class="text">{{ result.name }}</OutlineText>
           </div>
         </div>
-        <div class="nameLabelPost appear"><OutlineText>です</OutlineText></div>
-        <div class="msg appear">{{ result.msg }}</div>
+        <div class="nameLabelPost appear"><OutlineText class="text">です</OutlineText></div>
+        <div class="msg appear text">{{ result.msg }}</div>
       </div>
     </Transition>
   </div>
@@ -119,7 +121,7 @@ const probability = computed(() =>
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 75%;
+  height: 80%;
 
   --font-l: 48px;
   --font-m: 24px;
@@ -132,9 +134,13 @@ const probability = computed(() =>
     --font-s: 13px;
   }
 
+  .text {
+    pointer-events: auto;
+  }
+
   .main {
     display: grid;
-    grid-template-rows: 5% 20% 5% 30% 5% 30%;
+    grid-template-rows: 5% 20% 5% 35% 5% 30%;
     position: relative;
     height: 100%;
     padding: 16px;
@@ -178,6 +184,9 @@ const probability = computed(() =>
       padding-right: 10%;
       font-size: var(--font-l);
       line-height: 1.25;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+
       .name > * {
         background: linear-gradient(
           transparent 65%,

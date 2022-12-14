@@ -14,10 +14,13 @@ import MainStage from './MainStage.vue'
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/mixin.scss';
+
 .AppPage {
   display: grid;
   width: 100%;
   height: 100%;
+  min-height: 900px;
   max-width: 640px;
   border: 3px solid var(--theme-mid);
   background-color: var(--theme-mid);
@@ -26,6 +29,9 @@ import MainStage from './MainStage.vue'
   grid-template-rows: 60px 1fr 30px;
   box-shadow: 8px 8px 0 rgba(80, 56, 88, 0.248);
   //filter: url("#fulful");
+  @include mixin.sp {
+    min-height: 100%;
+  }
 
   .title {
     display: flex;

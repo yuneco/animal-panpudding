@@ -14,7 +14,7 @@ import OutlineFilter from './components/OutlineFilter.vue'
   <AppPage />
 </template>
 
-<style scoped>
+<style lang="scss">
 .invisible {
   display: none;
 }
