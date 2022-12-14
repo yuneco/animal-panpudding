@@ -1,64 +1,81 @@
 <script setup lang="ts">
-import { blob2uri } from '@/logics/core/Blob2Uri'
-import { detectWeather } from '@/logics/detection/detectWeather'
-import { reactive, ref } from 'vue'
+import { usePanpuddingForImage } from '@/logics/panpudding/usePanpuddingForImage'
+import { ref } from 'vue'
+import ImageSelect from './ImageSelect.vue'
+import ImageSelectDescription from './ImageSelectDescription.vue'
+import ProcessingMsg from './ProcessingMsg.vue'
+import ResultMsg from './ResultMsg.vue'
 
-const fileSelectorRef = ref()
-const imageRef = ref()
-const state = reactive({
-  imageDataUrl: '',
-})
-
-const fileSelected = async () => {
-  const file = fileSelectorRef.value?.files?.[0]
-  if (!file) {
-    return
-  }
-  state.imageDataUrl = await blob2uri(file)
+const inputImgSrc = ref<string>('')
+const onchange = (src: string) => {
+  inputImgSrc.value = src
 }
-
-const selectImage = () => {
-  const sel = fileSelectorRef.value
-  if (!sel || state.imageDataUrl) {
-    return
-  }
-  sel.click()
-}
-
-const onImgLoaded = () => {
-  const el = imageRef.value
-  if (!el) return
-  detectWeather(el)
-}
+const { isProcessing, panpudding } = usePanpuddingForImage(inputImgSrc)
 </script>
 
 <template>
-  <div class="MainStage" @click="selectImage">
-    <img
-      ref="imageRef"
-      v-if="state.imageDataUrl"
-      class="ref-image"
-      :src="state.imageDataUrl"
-      @load="onImgLoaded"
-    />
-    <label v-show="!state.imageDataUrl"
-      >Select Image File
-      <input type="file" @change="fileSelected" ref="fileSelectorRef" />
-    </label>
+  <div class="MainStage">
+    <div class="inputLayer">
+      <div class="direction">
+        「あしのさきの動物パンプリン占い」は脚の先をカメラで撮影して、その映像から天気を判定し、その天気に合ったパンプリンの占いをするクソアプリです。AIが考えました。
+      </div>
+      <ImageSelect @imageChange="onchange" class="inputImage" :class="{ hasResult: !!panpudding }">
+        <ImageSelectDescription />
+      </ImageSelect>
+    </div>
+    <div class="processingLayer">
+      <ProcessingMsg :visible="isProcessing"></ProcessingMsg>
+    </div>
+    <div class="resultLayer">
+      <ResultMsg :result="panpudding"></ResultMsg>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/mixin.scss';
+
 .MainStage {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  overflow: hidden;
-  border: 1px solid gray;
-  img {
+  display: contents;
+  .inputLayer {
+    display: grid;
+    padding: 32px;
+    height: 100%;
+    grid-template-rows: 20% 1fr;
+    gap: 16px;
+    align-items: center;
+    @include mixin.sp {
+      padding: 16px;
+      grid-template-rows: 25% 1fr;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .inputImage {
+      transition: transform 1s;
+      &.hasResult {
+        transform: translate(-30%, -30%) rotate(-20deg) scale(0.5);
+        box-shadow: 0 0 0 6px var(--theme-mid), 0 0 0 8px #fff;
+        @include mixin.sp {
+          transform: translate(-30%, -50%) rotate(-20deg) scale(0.5);
+        }
+      }
+    }
+  }
+  .processingLayer {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+  }
+  .resultLayer {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

@@ -1,0 +1,22 @@
+@mixin progressStripe {
+  box-shadow: 0 0 0 3px var(--theme-mid);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    var(--theme-light) 10px,
+    var(--theme-light) 20px
+  );
+  background-size: 200% 200%;
+  animation: bg-move 20s linear infinite;
+  @keyframes bg-move {
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+}
+
+@mixin sp {
+  @media screen and (max-width: 600px) {
+    @content;
+}}

@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import MainStage from './components/MainStage.vue'
+import AppPage from './components/AppPage.vue'
+import FulfulFilte from './components/FulfulFilter.vue'
+import OutlineFilter from './components/OutlineFilter.vue'
 </script>
 
 <template>
-  <MainStage></MainStage>
+  <svg class="invisible">
+    <defs>
+      <FulfulFilte filterId="fulful" :frequency="0.001" :scale="5" :animated="true" />
+      <OutlineFilter filterId="outline" />
+    </defs>
+  </svg>
+  <AppPage />
 </template>
 
-<style scoped></style>
+<style scoped>
+.invisible {
+  display: none;
+}
+</style>

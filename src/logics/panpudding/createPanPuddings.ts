@@ -1,14 +1,18 @@
 import { randomChoice } from '../core/arrayUtils'
 import type { Weather } from './weather'
 
-type Panpudding = {
+export type Panpudding = {
+  /** 動物パンプリンの名称 */
   name: string
+  /** 占いのメッセージ */
   msg: string
+  weather: Weather
+  probability: number
 }
 
 const PANPUDDINGS = {
   fine: [
-    ['お日様のパンプリン', `今日はとても運が良さそう！<ANIMAL>たちがいるからかもしれませんね！`],
+    ['お日様パンプリン', `今日はとても運が良さそう！<ANIMAL>たちがいるからかもしれませんね！`],
     [
       '真夏の太陽パンプリン',
       `暑さに負けず、快適に過ごすためのヒントを<ANIMAL>たちがお届けします！`,
@@ -18,15 +22,15 @@ const PANPUDDINGS = {
       `今日は晴れた空を見上げて、新しい出会いやチャンスを探してみましょう！<ANIMAL>たちはきっと応援してくれます！`,
     ],
     [
-      '晴天のお出かけパンプリン',
+      '晴天お出かけパンプリン',
       `晴れた日差しに包まれた素敵な一日を過ごしましょう！その際は、<ANIMAL>たちがお供にどうぞ！`,
     ],
     [
-      '晴天のラッキースイーツパンプリン',
+      '晴天ラッキースイーツパンプリン',
       `今日はラッキーな1日になりそう！そんな日には、<ANIMAL>たちがおすすめするスイーツがおいしいですよ！`,
     ],
     [
-      '晴天のハッピーエナジーパンプリン',
+      '晴天ハッピーエナジーパンプリン',
       `晴れた日は元気が出ますよね！今日も元気に過ごすためのエナジーパンプリンを作ってみましょう！<ANIMAL>たちの力を借りましょう！`,
     ],
   ],
@@ -60,19 +64,19 @@ const PANPUDDINGS = {
 
   rainy: [
     [
-      '雨の日のお茶会パンプリン',
+      '雨の日お茶会パンプリン',
       `雨の日は家でのんびりと過ごすのが一番ですよね！お茶会にぴったりな<ANIMAL>のパンプリンを作って、おしゃべりを楽しみましょう！`,
     ],
     [
-      '雨の日のお洗濯パンプリン',
+      '雨の日お洗濯パンプリン',
       `雨の日は洗濯もできますよ！今日はお洗濯を済ませてから、<ANIMAL>のパンプリンをつくって、のんびりと過ごしましょう！`,
     ],
     [
-      '雨の日の映画鑑賞パンプリン',
+      '雨の日映画鑑賞パンプリン',
       `雨の日はおうちでのんびりと映画を鑑賞するのも楽しいですよね！今日はお気に入りの映画を観て、<ANIMAL>のパンプリンを作って、ゆっくりと楽しみましょう！`,
     ],
     [
-      '雨の日の本屋さん巡りパンプリン',
+      '雨の日本屋さん巡りパンプリン',
       `雨の日は本屋さん巡りも楽しいですよね！今日はお気に入りの店を巡りながら、<ANIMAL>のパンプリンを作って、のんびりと過ごしましょう！`,
     ],
     [
@@ -86,10 +90,32 @@ const PANPUDDINGS = {
   ],
 }
 
-export const createPanPudding = (weather: Weather, animal: string): Panpudding => {
+const ANIMALS = [
+  'ホッキョクグマ',
+  'マカク',
+  'フクロウ',
+  'シマウマ',
+  'ラッコ',
+  'クマ',
+  'キツネ',
+  'トナカイ',
+  'カモメ',
+  'カンガルー',
+  'ペンギン',
+  'パンダ',
+  'テントウムシ',
+  'メジロ',
+  'イノシシ',
+  'トラ',
+]
+
+export const createPanPudding = (weather: Weather, probability: number): Panpudding => {
   const [name, msg] = randomChoice(PANPUDDINGS[weather])
+  const animal = randomChoice(ANIMALS)
   return {
     name: `${animal}の${name}`,
     msg: msg.replace(/<ANIMAL>/g, animal),
+    weather,
+    probability,
   }
 }
