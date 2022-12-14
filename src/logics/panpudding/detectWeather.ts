@@ -9,7 +9,7 @@ let modelLoader: ReturnType<typeof tmImage.load> | undefined = undefined
  */
 const loadModel = () => {
   if (!modelLoader) {
-    modelLoader = tmImage.load('/ml/model.json', '/ml/metadata.json')
+    modelLoader = tmImage.load('./ml/model.json', './ml/metadata.json')
   }
   return modelLoader
 }
