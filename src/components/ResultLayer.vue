@@ -146,7 +146,10 @@ const probability = computed(() =>
       line-height: 1.25;
       word-break: keep-all;
       overflow-wrap: break-word;
-
+      @include mixin.sp {
+        word-break: unset;
+        overflow-wrap: unset;
+      }
       .name > * {
         background: linear-gradient(
           transparent 65%,
